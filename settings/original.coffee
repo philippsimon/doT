@@ -162,7 +162,8 @@ resolveDefs.define  = /\{\{##\s*([\w\.$]+)\s*(\:|=)([\s\S]+?)#\}\}/g
 mangles['10_strip'] = (str, compileParams) ->
   return str unless @doT.strip
   str
-  .replace(/(^|\r|\n)\t* +| +\t*(\r|\n|$)/g , ' ')
+  .replace(/(^|\r|\n)[\t ]*|[\t ]*(\r|\n|$)/g, ' ')
+  .replace(/\>\s+\</g, '> <')
   .replace(/\r|\n|\t|\/\*[\s\S]*?\*\//g, '')
 
 mangles['20_escape_quotes'] = (str, compileParams) ->
