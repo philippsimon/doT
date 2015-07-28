@@ -1,4 +1,5 @@
 #doT.js
+[![Build Status](https://api.travis-ci.org/philippsimon/doT.svg)](https://travis-ci.org/philippsimon/doT)
 
 Created in search of the fastest and concise JavaScript templating function with emphasis on performance under V8 and nodejs. It shows great performance for both nodejs and browsers.
 
@@ -90,7 +91,7 @@ I moved all tag's definitions into `doT.tags` object:
 ```javascript
 doT.tags.tagname = {
 	regex: /your regex/,
-	func: function(...){...} // to pass 2nd param to String.replace 
+	func: function(...){...} // to pass 2nd param to String.replace
 }
 ```
 Take a look at existing tags defenitions and you can easily define your new one

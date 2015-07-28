@@ -18,7 +18,7 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "grunt test",
     "postinstall": "tsd install"
   },
   "dependencies": {
