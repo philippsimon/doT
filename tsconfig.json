@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "commonjs",
+        "removeComments": true,
+        "sourceMap": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "noResolve": false,
+        "noEmitOnError": true
+    },
+    "files": [
+        "lib/DotCore.d.ts",
+        "lib/DotCore.ts",
+        "lib/doT.ts",
+        "lib/express.ts",
+        "settings/original.ts",
+        "test/dot_spec.ts"
+    ]
+}
