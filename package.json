@@ -13,7 +13,7 @@
   "author": "Laura Doktorova <ldoktorova@gmail.com>",
   "license": "MIT",
   "readmeFilename": "README.md",
-  "main": "lib/DotCore.js",
+  "main": "lib/doT.js",
   "directories": {
     "example": "examples"
   },
