@@ -1,5 +1,5 @@
 #doT.js
-[![Build Status](https://api.travis-ci.org/philippsimon/doT.svg)](https://travis-ci.org/philippsimon/doT)
+[![Build Status (Linux)](https://api.travis-ci.org/philippsimon/doT.svg)](https://travis-ci.org/philippsimon/doT) [![Build status (Windows)](https://ci.appveyor.com/api/projects/status/8yhh6rga5w1fhxur/branch/master?svg=true)](https://ci.appveyor.com/project/philippsimon/dot/branch/master)
 
 Created in search of the fastest and concise JavaScript templating function with emphasis on performance under V8 and nodejs. It shows great performance for both nodejs and browsers.
 
