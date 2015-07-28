@@ -18,8 +18,7 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "grunt test",
-    "postinstall": "tsd install && grunt build"
+    "test": "grunt test"
   },
   "dependencies": {
     "flow": "~0.2.0",
