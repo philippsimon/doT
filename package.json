@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "grunt test",
-    "postinstall": "tsd install; grunt build"
+    "postinstall": "tsd install && grunt build"
   },
   "dependencies": {
     "flow": "~0.2.0",
