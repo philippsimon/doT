@@ -254,8 +254,8 @@ function cleanup(
   return str
     .replace(/(;|}|^|{)\s*out\s*\+=\s*'';/g, '$1')
     .replace(/\s*\+\s*''/g, '')
-    .replace(/var out = ''; out \+=/, 'var out =')
-    .replace(/var out = ([^;]*); return out;/, 'return $1;');
+    .replace(/var out\s*=\s*'';\s*out\s*\+=/, 'var out =')
+    .replace(/var out\s*=\s*([^;]*);\s*return out;/, 'return $1;');
     //.replace(/(\s|;|}|^|{)out\+=''\+/g, '$1out+=');
 }
 
@@ -339,7 +339,7 @@ var settings: DotCore.settings = {
       startencode: "' + encodeHTML( "
     },
 		split: {
-      start: "';out += ( ",
+      start: "'; out += ( ",
       end: " ); out += '",
       startencode: "'; out += encodeHTML( "
     }

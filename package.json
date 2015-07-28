@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "grunt test",
-    "postinstall": "tsd install"
+    "postinstall": "tsd install; grunt build"
   },
   "dependencies": {
     "flow": "~0.2.0",
@@ -28,14 +28,12 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-mocha": "^0.4.13",
     "grunt-mocha-test": "^0.12.7",
     "grunt-ts": "^4.2.0",
     "grunt-typescript": "^0.6.2",
     "mocha": "*",
     "tsd": "^0.6.3",
     "typescript": "^1.5.3",
-    "typscript": "Microsoft/TypeScript",
     "uglify-js": "*"
   }
 }
