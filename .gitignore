@@ -1,3 +1,4 @@
 /.tscache
 /node_modules
 /typings
+*.tmp.txt
