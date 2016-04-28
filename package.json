@@ -6,6 +6,9 @@
     "type": "git",
     "url": "git://github.com/philippsimon/doT.git"
   },
+  "engines": {
+    "node" : ">=0.10 <=5"
+  },
   "keywords": [
     "template",
     "templating"
