@@ -1,14 +1,18 @@
 module.exports = function(grunt) {
-	grunt.initConfig({
-	  ts: {
-	    default: {
-	      src: ['{lib,settings,test}/**/*.ts'],
-	      options: {
-	        module: 'commonjs',
-	        target: 'es5'
-	      }
-	    }
-	  },
+  grunt.initConfig({
+    jscs: {
+      all: {
+        options: {
+          config: '.jscsrc'
+        },
+        src: ['{lib,settings,test}/**/*.js', '*.js']
+      },
+    },
+    eslint: {
+      all: {
+        src: ['{lib,settings,test}/**/*.js', '*.js']
+      },
+    },
     mochaTest: {
       test: {
         src: ['test/**/*.js']
@@ -16,20 +20,20 @@ module.exports = function(grunt) {
     },
     watch: {
       scripts: {
-        files: ['{lib,settings,test}/**/*.ts'],
-        tasks: ['build', 'test'],
+        files: ['{lib,settings,test}/**/*.js'],
+        tasks: ['test'],
         options: {
           spawn: false,
         },
       },
-    },
-	});
+    }
+  });
 
-	grunt.loadNpmTasks('grunt-ts');
+  grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('build', ['ts']);
-  grunt.registerTask('test', ['mochaTest']);
+  grunt.registerTask('test', ['jscs', 'eslint', 'mochaTest']);
   grunt.registerTask('default', ['build']);
-}
+};

@@ -1,0 +1,11 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "javascript.validate.noLib": true,
+  "javascript.validate.module": "commonjs",
+  "files.trimTrailingWhitespace": true,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true
+  }
+}
