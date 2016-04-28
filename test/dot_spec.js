@@ -1,4 +1,4 @@
-var assert = require('assert');
+var expect = require('chai').expect;
 var doT = require('../lib/doT');
 doT.templateSettings.with = false;
 var DotCore = require('../lib/DotCore');
@@ -8,22 +8,22 @@ var encodeHTML = doT.encodeHTMLSource(true);
 describe('doT', function() {
 
   describe('#compile', function() {
-    return it('returns a function', function() {
-      return assert.equal('function', typeof doT.compile(''));
+    it('returns a function', function() {
+      expect('function').to.equal(typeof doT.compile(''));
     });
   });
 
   describe('calling compiled function', function() {
-    return it('renders the template', function() {
+    it('renders the template', function() {
       var str = '<div>{{! it.foo || \'\' }}</div>';
       var tmpl = doT.compile(str);
-      assert.equal('<div>http</div>', tmpl({
+      expect('<div>http</div>').to.equal(tmpl({
         foo: 'http'
       }));
-      assert.equal('<div>http:&#47;&#47;abc.com</div>', tmpl({
+      expect('<div>http:&#47;&#47;abc.com</div>', tmpl({
         foo: 'http://abc.com'
       }));
-      return assert.equal('<div></div>', tmpl({}));
+      expect('<div></div>').to.equal(tmpl({}));
     });
   });
 
@@ -53,24 +53,24 @@ describe('doT', function() {
     });
 
     it('renders partial', function() {
-      assert.equal('data2 partial', doT.render('body2', {}));
+      expect('data2 partial', doT.render('body2', {}));
     });
 
     it('renders using dynamic includes', function() {
-      assert.equal('<html>data1</html>', doT.render('layout1', include1));
-      assert.equal('<html>data2 partial</html>',
+      expect('<html>data1</html>').to.equal(doT.render('layout1', include1));
+      expect('<html>data2 partial</html>').to.equal(
         doT.render('layout1', include2));
-      assert.equal('<xml>data1</xml>', doT.render('layout2', include1));
-      assert.equal('<xml>data2 partial</xml>',
+      expect('<xml>data1</xml>').to.equal(doT.render('layout2', include1));
+      expect('<xml>data2 partial</xml>').to.equal(
         doT.render('layout2', include2));
     });
 
     describe('#getCached', function() {
       it('returns template function', function() {
-        assert.equal('data1', doT.getCached('body1')({}));
+        expect('data1').to.equal(doT.getCached('body1')({}));
       });
       it('returns object with template functions', function() {
-        assert.equal('data1', doT.getCached().body1({}));
+        expect('data1').to.equal(doT.getCached().body1({}));
       });
     });
 
@@ -78,11 +78,11 @@ describe('doT', function() {
       it('sets all cached functions', function() {
         var cache = doT.getCached();
         doT.setCached({});
-        assert.throws(function() {
+        expect(function() {
           return doT.render('body1', {});
-        });
+        }).to.throw(Error);
         doT.setCached(cache);
-        assert.equal('data1', doT.render('body1', {}));
+        expect('data1').to.equal(doT.render('body1', {}));
       });
     });
 
@@ -91,7 +91,7 @@ describe('doT', function() {
         var str = doT.exportCached();
         var obj = null;
         eval('obj = ' + str);
-        assert.equal('data1', obj.body1({}));
+        expect('data1').to.equal(obj.body1({}));
       });
     });
   });
@@ -100,14 +100,14 @@ describe('doT', function() {
     describe('= true', function() {
       it('should replace new lines with space', function() {
         doT.templateSettings.strip = true;
-        assert.equal('a b c', doT.compile('  a\r\n\t b\nc  \t')());
+        expect('a b c').to.equal(doT.compile('  a\r\n\t b\nc  \t')());
       });
     });
     describe('= false', function() {
       it('should keep new lines', function() {
         doT.templateSettings.strip = false;
-        assert.equal('a\nb\n', doT.compile('a\nb\n')());
-        assert.equal('a\nb\n', doT.compile('{{= "a" }}\n{{= "b" }}\n')());
+        expect('a\nb\n').to.equal(doT.compile('a\nb\n')());
+        expect('a\nb\n').to.equal(doT.compile('{{= "a" }}\n{{= "b" }}\n')());
       });
     });
   });
@@ -124,11 +124,11 @@ describe('doT', function() {
           val3: 'footer'
         });
         doT.templateSettings.with = false;
-        assert.deepEqual({
+        expect({
           _content: 'content end',
           title: 'title',
           footer: 'footer'
-        }, result);
+        }).to.deep.equal(result);
       });
     });
 
@@ -136,106 +136,109 @@ describe('doT', function() {
       it('works', function() {
         var str = '{{##def.tmp:<div>{{!it.foo || \'\'}}</div>#}}{{#def.tmp}}';
         var tmpl = doT.compile(str);
-        assert.equal('<div>http</div>', tmpl({
+        expect('<div>http</div>').to.equal(tmpl({
           foo: 'http'
         }));
-        assert.equal('<div>http:&#47;&#47;abc.com</div>', tmpl({
+        expect('<div>http:&#47;&#47;abc.com</div>').to.equal(tmpl({
           foo: 'http://abc.com'
         }));
-        assert.equal('<div></div>', tmpl({}));
+        expect('<div></div>').to.equal(tmpl({}));
       });
     });
 
     describe('interpolate', function() {
       it('works without spaces', function() {
-        assert.equal('a', doT.compile('{{=it}}')('a'));
+        expect('a').to.equal(doT.compile('{{=it}}')('a'));
       });
       it('works with some spaces', function() {
-        assert.equal('b', doT.compile('{{ =it }}')('b'));
+        expect('b').to.equal(doT.compile('{{ =it }}')('b'));
       });
       it('works with a lot spaces', function() {
-        assert.equal('c', doT.compile('{{ = it }}')('c'));
+        expect('c').to.equal(doT.compile('{{ = it }}')('c'));
       });
     });
 
     describe('encode', function() {
       it('works without spaces', function() {
-        assert.equal(encodeHTML('<'), doT.compile('{{!it}}')('<'));
+        expect(encodeHTML('<')).to.equal(doT.compile('{{!it}}')('<'));
       });
       it('works with some spaces', function() {
-        assert.equal(encodeHTML('>'), doT.compile('{{ !it }}')('>'));
+        expect(encodeHTML('>')).to.equal(doT.compile('{{ !it }}')('>'));
       });
       it('works with a lot spaces', function() {
-        assert.equal(encodeHTML('<<'), doT.compile('{{ ! it }}')('<<'));
+        expect(encodeHTML('<<')).to.equal(doT.compile('{{ ! it }}')('<<'));
       });
     });
 
     describe('conditional', function() {
       it('works without spaces', function() {
-        assert.equal('a', doT.compile('{{?it}}a{{?}}')(true));
+        expect('a').to.equal(doT.compile('{{?it}}a{{?}}')(true));
       });
       it('works with spaces', function() {
-        assert.equal('b', doT.compile('{{ ? it }}b{{ ? }}')(true));
+        expect('b').to.equal(doT.compile('{{ ? it }}b{{ ? }}')(true));
       });
       it('elsecase works', function() {
-        assert.equal('c', doT.compile('{{ ?it }}a{{ ?? }}c{{?}}')(false));
+        expect('c').to.equal(doT.compile('{{ ?it }}a{{ ?? }}c{{?}}')(false));
       });
       it('else-elsecase works', function() {
-        assert.equal('d',
+        expect('d').to.equal(
           doT.compile('{{ ? it }}a{{ ?? false }}b{{ ?? }}d{{ ? }}')(false));
       });
       it('inverse condition works', function() {
-        assert.equal('e', doT.compile('{{ ? !it }}e{{ ? }}')(false));
+        expect('e').to.equal(doT.compile('{{ ? !it }}e{{ ? }}')(false));
       });
     });
 
     describe('iterate', function() {
       it('works without spaces & key', function() {
-        assert.equal('abc', doT.compile('{{~it:value}}{{=value}}{{~}}')(
+        expect('abc').to.equal(doT.compile('{{~it:value}}{{=value}}{{~}}')(
           ['a', 'b', 'c']));
       });
       it('works without spaces, with key', function() {
-        assert.equal('0a1b2c', doT.compile('{{~it:key=>value}}{{=key}}' +
+        expect('0a1b2c').to.equal(doT.compile('{{~it:key=>value}}{{=key}}' +
           '{{=value}}{{~}}')(['a', 'b', 'c']));
       });
       it('works with spaces, without key', function() {
-        assert.equal('abc', doT.compile('{{ ~ it : value }}{{=value}}{{ ~ }}')(
+        expect('abc').to.equal(
+          doT.compile('{{ ~ it : value }}{{=value}}{{ ~ }}')(
           ['a', 'b', 'c']));
       });
       it('works with spaces & key', function() {
-        assert.equal('0a1b2c', doT.compile('{{ ~ it : key => value }}' +
+        expect('0a1b2c').to.equal(doT.compile('{{ ~ it : key => value }}' +
           '{{=key}}{{=value}}{{ ~ }}')(['a', 'b', 'c']));
       });
       it('works with old style', function() {
-        assert.equal('0a1b2c', doT.compile('{{~it.array :value:key}}{{=key}}' +
+        expect('0a1b2c').to.equal(
+          doT.compile('{{~it :value:key}}{{=key}}' +
           '{{=value}}{{~}}')(['a', 'b', 'c']));
       });
     });
 
     describe('iterateFor', function() {
       it('works without spaces & key', function() {
-        assert.equal('123', doT.compile('{{:it:x}}{{=x}}{{:}}')({
+        expect('123').to.equal(doT.compile('{{:it:x}}{{=x}}{{:}}')({
           a: 1,
           b: 2,
           c: 3
         }));
       });
       it('works without spaces, with key', function() {
-        assert.equal('a1b2c3', doT.compile('{{:it:x=>y}}{{=x}}{{=y}}{{:}}')({
+        expect('a1b2c3').to.equal(
+          doT.compile('{{:it:x=>y}}{{=x}}{{=y}}{{:}}')({
           a: 1,
           b: 2,
           c: 3
         }));
       });
       it('works with spaces, without key', function() {
-        assert.equal('123', doT.compile('{{ : it : x }}{{=x}}{{ : }}')({
+        expect('123').to.equal(doT.compile('{{ : it : x }}{{=x}}{{ : }}')({
           a: 1,
           b: 2,
           c: 3
         }));
       });
       it('works with spaces & key', function() {
-        assert.equal('a1b2c3',
+        expect('a1b2c3').to.equal(
           doT.compile('{{ : it : x => y }}{{=x}}{{=y}}{{ : }}')({
           a: 1,
           b: 2,
@@ -243,17 +246,17 @@ describe('doT', function() {
         }));
       });
       it('iterates through inline object', function() {
-        assert.equal('test',
+        expect('test',
           doT.compile('{{:{x:"test"} :k => v}}{{=v}}{{:}}')({}));
       });
       it('iterates through complex inline object but without spaces',
         function() {
-        assert.equal('test', doT.compile('{{: {x:"test",' +
+        expect('test').to.equal(doT.compile('{{: {x:"test",' +
           'y:{z:{}}} :k => v}}{{=v}}{{break}}{{:}}')({}));
       });
       it('works with old style', function() {
-        assert.equal('a1b2c3',
-          doT.compile('{{:it.array :y:x}}{{=x}}{{=y}}{{:}}')({
+        expect('a1b2c3').to.equal(
+          doT.compile('{{:it :y:x}}{{=x}}{{=y}}{{:}}')({
           a: 1,
           b: 2,
           c: 3
@@ -269,7 +272,7 @@ describe('doT', function() {
         '{{=x}}{{~}}{{ :e:x}}{{=x}}{{:}}{{ var v = f}}{{=v}}');
       doT.templateSettings.with = false;
 
-      assert.equal('abcdef', fn({
+      expect('abcdef').to.equal(fn({
         a: 'a',
         b: 'b',
         c: 'c',

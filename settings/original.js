@@ -46,7 +46,7 @@ var tags = {
   },
 
   iterate: {
-    regex: /\{\{\s*~\s*(?:(\S+?)\s*\:\s*([\w$]+)\s*(?:(=>|:)\s*([\w$]+))?\s*)?\}\}/g,
+    regex: /\{\{\s*~\s*(?:((?!\}\})\S+?)\s*\:\s*([\w$]+)\s*(?:(=>|:)\s*([\w$]+))?\s*)?\}\}/g,
     func: function(m, iterate, iname, connector, vname) {
       if (!iterate) {
         return '\'; } } out += \'';
@@ -56,9 +56,9 @@ var tags = {
         vname = iname;
         iname = 'i' + sid;
       } else if (connector === ':') {
-        var temp = vname;
+        var vnameTmp = vname;
         vname = iname;
-        iname = vname;
+        iname = vnameTmp;
       }
       iterate = unescape(iterate);
       return '\'; var arr' + sid + ' = ' + iterate + '; if( arr' + sid +
@@ -69,7 +69,7 @@ var tags = {
   },
 
   iterateFor: {
-    regex: /\{\{\s*:\s*(?:(\S+?)\s*\:\s*([\w$]+)\s*(?:(=>|:)\s*([\w$]+))?\s*)?\}\}/g,
+    regex: /\{\{\s*:\s*(?:((?!\}\})\S+?)\s*\:\s*([\w$]+)\s*(?:(=>|:)\s*([\w$]+))?\s*)?\}\}/g,
     func: function(m, iterate, iname, connector, vname) {
       if (!iterate) {
         return '\'; } } out += \'';
@@ -79,9 +79,9 @@ var tags = {
         vname = iname;
         iname = 'i' + (++sid);
       } else if (connector === ':') {
-        var temp = vname;
+        var vnameTmp = vname;
         vname = iname;
-        iname = vname;
+        iname = vnameTmp;
       }
       return '\'; var ' + inpname + ' = ' + iterate + '; if ( ' + inpname +
         ' ) { var ' + vname + ', ' + iname + '; for (' + iname + ' in ' +

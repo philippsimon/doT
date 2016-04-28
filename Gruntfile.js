@@ -6,26 +6,23 @@ module.exports = function(grunt) {
           config: '.jscsrc'
         },
         src: ['{lib,settings,test}/**/*.js', '*.js']
-      },
+      }
     },
     eslint: {
       all: {
         src: ['{lib,settings,test}/**/*.js', '*.js']
-      },
+      }
     },
     mochaTest: {
       test: {
         src: ['test/**/*.js']
-      },
+      }
     },
     watch: {
       scripts: {
         files: ['{lib,settings,test}/**/*.js'],
-        tasks: ['test'],
-        options: {
-          spawn: false,
-        },
-      },
+        tasks: ['test']
+      }
     }
   });
 
@@ -34,6 +31,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('test', ['jscs', 'eslint', 'mochaTest']);
-  grunt.registerTask('default', ['build']);
+  grunt.registerTask('test', ['mochaTest', 'eslint', 'jscs']);
 };

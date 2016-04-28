@@ -26,6 +26,7 @@
     "optimist": "~0.3.4"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "eslint": "^2.8.0",
     "grunt": "^0.4.5",
     "grunt-contrib-watch": "^0.6.1",
@@ -33,7 +34,6 @@
     "grunt-jscs": "^2.8.0",
     "grunt-mocha-test": "^0.12.7",
     "jscs": "^3.0.3",
-    "mocha": "*",
-    "uglify-js": "*"
+    "mocha": "*"
   }
 }
