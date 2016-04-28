@@ -32,18 +32,9 @@ Created in search of the fastest and concise JavaScript templating function with
 ###Native Docs, live playground and samples:
 http://olado.github.com/doT
 
-###Incompability
+###Extensions
+Additionally to the original doT the following 2 tag styles are allowed for loops:
 ```
-original doT style:
-{{~varname :value}}
-{{~varname :value:key}}
-
-old iterateFor style:
-{{:varname :key:value}}
-
-Current style:
-{{~varname :value}}
-{{:varname :value}}
 {{~varname :key => value}}
 {{:varname :key => value}}
 ```
@@ -231,27 +222,6 @@ and {{=three}}
   footer: 'other stuff'
 }
 ```
-
-####compile options
-Also compile-time option 'with' available (default to true). It wraps function body in 'with' construction which allows use properties directly (without it. prefix).
-
-- `true` sets doT.templateSettings.varname as argument for with
-- you can specify your own argument
-- `false` disables it
-
-**Warning!** Be careful with this option, cause 'with' will fail if you run tmpl function with no (or less then specified) args.
-
-####compile.js [-b/--base dir] path[...]
-Compiles templates from files in cache object.
-If path is directory it will walk it through recursively.
-
-If --base specified template ids would be generated relative to this dir (/ replaced with .), otherwise just files basenames are used.
-
-For `-b root root/t1.tmpl root/t2.tmpl root/dir1/dir2/t1.tmpl` ids would be `[t1, t2, dir1.dir2.t1]`.
-
-It requires `optimist` module, so install it before use.
-
-**HAML!** If you have `haml` executable in your PATH `.haml` files will be passed through it before compilation!
 
 ##License:
 - doT is an open source component of http://bebedo.com
